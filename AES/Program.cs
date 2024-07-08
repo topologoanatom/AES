@@ -17,25 +17,6 @@ public class AES
 
     static byte[] SArray = GenerateSArray();
     static byte[] rcI = new byte[10] { 0x01, 0x02, 0x04, 0x08, 0x10, 0x20, 0x40, 0x80, 0x1b, 0x36 };
-    static void Main()
-    {
-        var watch = new Stopwatch();
-        var key = GenerateCTRKey();
-        byte[] plaintext = RandomNumberGenerator.GetBytes(1 << 7);
-        byte[] copy = new byte[plaintext.Length];
-        plaintext.CopyTo(copy, 0);
-        watch.Start();
-        EncryptCTR(copy, key);
-        EncryptCTR(copy, key);
-        watch.Stop();
-        Console.WriteLine(watch.ElapsedMilliseconds);
-
-        for (int i = 0; i < 1 << 7; i++)
-        {
-            Console.WriteLine($"{i} {plaintext[i] == copy[i]}");
-        }
-    }
-
     public static void EncryptCTR(byte[] plaintext, byte[][][] key)
     {
         int mainPartIndex = plaintext.Length >> 4;
